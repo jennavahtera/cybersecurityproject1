@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base_generic.html" %}
 
 {% block content %}
   <div class="login-container">
@@ -8,6 +8,5 @@
       {{ form.as_p }}
       <button type="submit" class="btn btn-primary">Login</button>
     </form>
-    <p>Don't have an account? <a href="{% url 'register' %}">Register here</a></p>
   </div>
 {% endblock %}

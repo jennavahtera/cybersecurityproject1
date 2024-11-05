@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Create a New Poll</h2>
+  <form method="post">
+    {% csrf_token %}
+    <label for="question_text">Question:</label>
+    <input type="text" name="question_text" id="question_text" required>
+
+    <h3>Choices</h3>
+    <div id="choices">
+      <div>
+        <label for="choice1">Choice 1:</label>
+        <input type="text" name="choices[]" required>
+      </div>
+      <div>
+        <label for="choice2">Choice 2:</label>
+        <input type="text" name="choices[]" required>
+      </div>
+    </div>
+    <button type="button" onclick="addChoice()">Add Another Choice</button>
+
+    <button type="submit">Create Poll</button>
+  </form>
+
+  <a href="{% url 'polls:all_polls' %}">Back to Polls</a>
+
+  <script>
+    let choiceCount = 2;
+
+    function addChoice() {
+      choiceCount++;
+      const choiceDiv = document.createElement('div');
+      choiceDiv.innerHTML = `
+        <label for="choice${choiceCount}">Choice ${choiceCount}:</label>
+        <input type="text" name="choices[]" required>
+      `;
+      document.getElementById('choices').appendChild(choiceDiv);
+    }
+  </script>
+{% endblock %}

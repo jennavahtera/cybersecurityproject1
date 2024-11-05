@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>My Polls</h1>
+  <a href="{% url 'polls:create_question' %}">Create New Poll</a>
+  <a href="{% url 'polls:all_polls' %}">View All Polls</a>
+
+  {% if my_question_list %}
+    <ul>
+      {% for question in my_question_list %}
+        <li>
+          <a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a>
+          <small>(Published on {{ question.pub_date }})</small>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>You haven't created any polls yet.</p>
+  {% endif %}
+{% endblock %}
