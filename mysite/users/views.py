@@ -4,8 +4,12 @@ from .forms import UserRegisterForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-#import logging
 
+# FLAW: OWASP A09:2021 – Security Logging and Monitoring Failures; CWE-778 Insufficient Logging
+# (No logging at all is happening)
+# FIX: adding a logger and logger warnings when someone tries to login with invalid credentials
+
+#import logging
 #logger = logging.getLogger(__name__)
 
 User = get_user_model()
@@ -46,6 +50,8 @@ def login_view(request):
             messages.error(request, "Invalid password.")
             form = AuthenticationForm(request)
             return render(request, 'users/login.html', {'form': form})
+        
+        
 
         #form = AuthenticationForm(request, data=request.POST)
         #if form.is_valid():
