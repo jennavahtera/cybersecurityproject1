@@ -2,24 +2,43 @@
 
 {% block content %}
   <h2>Create a New Poll</h2>
+
+  {% if error_message %}
+    <div class="alert alert-danger">
+      {{ error_message }}
+    </div>
+  {% endif %}
+
   <form method="post">
     {% csrf_token %}
+    
     <label for="question_text">Question:</label>
-    <input type="text" name="question_text" id="question_text" required>
+    <input type="text" name="question_text" id="question_text" value="{{ question_text }}" required maxlength="200">
 
     <h3>Choices</h3>
     <div id="choices">
-      <div>
-        <label for="choice1">Choice 1:</label>
-        <input type="text" name="choices[]" required>
-      </div>
-      <div>
-        <label for="choice2">Choice 2:</label>
-        <input type="text" name="choices[]" required>
-      </div>
+      
+      {% if choices %}
+        {% for choice in choices %}
+          <div>
+            <label>Choice {{ forloop.counter }}:</label>
+            <input type="text" name="choices[]" value="{{ choice }}" required>
+          </div>
+        {% endfor %}
+      {% else %}
+        <div>
+          <label for="choice1">Choice 1:</label>
+          <input type="text" name="choices[]" required>
+        </div>
+        <div>
+          <label for="choice2">Choice 2:</label>
+          <input type="text" name="choices[]" required>
+        </div>
+      {% endif %}
+      
     </div>
+    
     <button type="button" onclick="addChoice()">Add Another Choice</button>
-
     <button type="submit">Create Poll</button>
   </form>
 
@@ -39,3 +58,4 @@
     }
   </script>
 {% endblock %}
+
