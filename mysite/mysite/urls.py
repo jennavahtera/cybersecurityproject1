@@ -18,6 +18,11 @@ from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [
+# FLAW: OWASP A04:2021 – Insecure Design; CWE-209 Generation of Error Message Containing Sensitive Information
+# (When simply going to the homepage of the app, the user gets an error message that reveals the complete url mapping of the app)
+# (This happens mainly because the DEBUG is on True in settings.py)
+# FIX: include the homepage in the urls and turn off DEBUG in settings.py
+
 #    path('', include('polls.urls')),
     path('polls/', include('polls.urls')),
     path('admin/', admin.site.urls),
