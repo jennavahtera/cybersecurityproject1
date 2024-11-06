@@ -22,8 +22,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "django-insecure-oort+x5*=09shaawe_nupizd5h*krbm63py$5$hw@&ef_&08t@"
 
+# FLAW: OWASP A05:2021 – Security Misconfiguration
+# (The debug shouldn't be left as True, it should only be True while developing, not in production)
+# FIX: the DEBUG is set to False
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+# DEBUG = False
 
 ALLOWED_HOSTS = []
 
