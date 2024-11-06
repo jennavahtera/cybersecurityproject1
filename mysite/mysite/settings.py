@@ -96,6 +96,10 @@ DATABASES = {
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
+# FLAW: A07:2021 – Identification and Authentication Failures; CWE-521 Weak Password Requirements
+# (the password can be whatever, it isn't authenticated at all)
+# FIX: putting out the commented code takes advantage of Django's password authentication systems, that doesn't allow weak passwords
+
 AUTH_PASSWORD_VALIDATORS = [
    # {
    #     "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
