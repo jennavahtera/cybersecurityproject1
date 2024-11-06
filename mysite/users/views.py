@@ -34,6 +34,10 @@ def register(request):
 def login_view(request):
     if request.method == 'POST':
 
+        # FLAW: OWASP A01:2021 – Broken Access Control; CWE-200 Exposure of Sensitive Information to an Unauthorized Actor
+        # (An unauthorised user can get information about other users when not logged in, message shows "Invalid username" or "Invalid password")
+        # FIX: Using Django's own authentication and using error messages that don't give out information
+
         username = request.POST.get('username')
         password = request.POST.get('password')
         try:
@@ -50,8 +54,6 @@ def login_view(request):
             messages.error(request, "Invalid password.")
             form = AuthenticationForm(request)
             return render(request, 'users/login.html', {'form': form})
-        
-        
 
         #form = AuthenticationForm(request, data=request.POST)
         #if form.is_valid():
