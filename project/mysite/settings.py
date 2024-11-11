@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 
+#import os
+#from dotenv import load_dotenv
+#load_dotenv()
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -21,6 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "django-insecure-oort+x5*=09shaawe_nupizd5h*krbm63py$5$hw@&ef_&08t@"
+#SECRET_KEY = str(os.getenv('DJANGO_SECRET_KEY'))
 
 # FLAW: OWASP A05:2021 – Security Misconfiguration
 # (The debug shouldn't be left as True, it should only be True while developing, not in production)

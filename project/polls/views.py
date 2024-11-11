@@ -67,16 +67,12 @@ def create_question(request):
         question_text = request.POST.get('question_text')
         choices = request.POST.getlist('choices[]')
 
-        # FLAW: OWASP A03:2021 - Injection; CWE-20: Improper Input Validation 
-        # (the text that user gives as a poll question isn't validated, the polls can be as long as the user wants)
-        # FIX: the following commented code restricts the poll to be under 200 characters.
-
-        #if question_text and len(question_text) > 200:
-        #    return render(request, 'polls/create_question.html', {
-        #        'error_message': 'The poll has to be 200 characters or less.',
-        #        'question_text': question_text,
-        #        'choices': choices,
-        #    })
+        if question_text and len(question_text) > 200:
+            return render(request, 'polls/create_question.html', {
+                'error_message': 'The poll has to be 200 characters or less.',
+                'question_text': question_text,
+                'choices': choices,
+            })
 
         if question_text and choices and any(choice.strip() for choice in choices):
             with transaction.atomic():
